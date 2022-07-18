@@ -27,6 +27,7 @@ type BaseModel struct {
 func Migrate(db *gorm.DB) error {
 	models := []migrator.Migrator{
 		&User{},
+		&Role{},
 	}
 
 	for _, model := range models {

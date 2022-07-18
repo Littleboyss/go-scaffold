@@ -50,6 +50,7 @@ require (
 	gorm.io/driver/mysql v1.3.3
 	gorm.io/driver/postgres v1.3.4
 	gorm.io/gorm v1.23.4
+	gorm.io/plugin/dbresolver v1.1.0
 	gorm.io/plugin/soft_delete v1.1.0
 	moul.io/zapgorm2 v1.0.3
 )
@@ -157,7 +158,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/sqlserver v1.3.2 // indirect
-	gorm.io/plugin/dbresolver v1.1.0 // indirect
 	modernc.org/libc v1.15.1 // indirect
 	modernc.org/mathutil v1.4.1 // indirect
 	modernc.org/memory v1.0.7 // indirect

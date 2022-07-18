@@ -22,8 +22,10 @@ import (
 	config2 "go-scaffold/internal/app/config"
 	"go-scaffold/internal/app/cron"
 	"go-scaffold/internal/app/cron/job"
+	"go-scaffold/internal/app/repository/role"
 	"go-scaffold/internal/app/repository/user"
 	"go-scaffold/internal/app/service/greet"
+	role2 "go-scaffold/internal/app/service/role"
 	user2 "go-scaffold/internal/app/service/user"
 	"go-scaffold/internal/app/transport"
 	grpc2 "go-scaffold/internal/app/transport/grpc"
@@ -31,6 +33,7 @@ import (
 	user4 "go-scaffold/internal/app/transport/grpc/handler/v1/user"
 	"go-scaffold/internal/app/transport/http"
 	greet2 "go-scaffold/internal/app/transport/http/handler/v1/greet"
+	role3 "go-scaffold/internal/app/transport/http/handler/v1/role"
 	trace2 "go-scaffold/internal/app/transport/http/handler/v1/trace"
 	user3 "go-scaffold/internal/app/transport/http/handler/v1/user"
 	"go-scaffold/internal/app/transport/http/router"
@@ -92,7 +95,10 @@ func initApp(rotateLogs *rotatelogs.RotateLogs, logLogger log.Logger, zapLogger 
 	repository := user.NewRepository(db, client)
 	userService := user2.NewService(logLogger, repository)
 	userHandler := user3.NewHandler(logLogger, userService)
-	engine := router.New(rotateLogs, zapLogger, logLogger, configApp, configHTTP, jwt, enforcer, handler, traceHandler, userHandler)
+	roleRepository := role.NewRepository(db, client)
+	roleService := role2.NewService(logLogger, roleRepository)
+	roleHandler := role3.NewHandler(logLogger, roleService)
+	engine := router.New(rotateLogs, zapLogger, logLogger, configApp, configHTTP, jwt, enforcer, handler, traceHandler, userHandler, roleHandler)
 	server := http.NewServer(logLogger, configHTTP, engine)
 	configGRPC := configConfig.GRPC
 	greetHandler := greet3.NewHandler(logLogger, service)

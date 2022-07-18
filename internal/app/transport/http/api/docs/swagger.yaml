@@ -73,6 +73,31 @@ definitions:
       msg:
         type: string
     type: object
+  role.CreateRequest:
+    properties:
+      name:
+        type: string
+      remark:
+        type: string
+    type: object
+  role.DetailResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      remark:
+        type: string
+    type: object
+  role.ListItem:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      remark:
+        type: string
+    type: object
   user.CreateRequest:
     properties:
       age:
@@ -165,6 +190,266 @@ paths:
       summary: 示例接口
       tags:
       - 示例
+  /v1/role:
+    post:
+      consumes:
+      - application/json
+      description: 创建角色
+      parameters:
+      - description: 角色信息
+        format: string
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/role.CreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/example.Success'
+        "400":
+          description: 客户端请求错误（code 类型应为 int，string 仅为了表达多个错误码）
+          schema:
+            $ref: '#/definitions/example.ClientError'
+        "401":
+          description: 登陆失效
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: 没有权限
+          schema:
+            $ref: '#/definitions/example.PermissionDenied'
+        "404":
+          description: 资源不存在
+          schema:
+            $ref: '#/definitions/example.ResourceNotFound'
+        "429":
+          description: 请求过于频繁
+          schema:
+            $ref: '#/definitions/example.TooManyRequest'
+        "500":
+          description: 服务器出错
+          schema:
+            $ref: '#/definitions/example.ServerError'
+      security:
+      - Authorization: []
+      summary: 创建角色
+      tags:
+      - 角色
+  /v1/role/{id}:
+    delete:
+      consumes:
+      - text/plain
+      description: 删除角色
+      parameters:
+      - description: 角色 id
+        format: uint
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/example.Success'
+        "400":
+          description: 客户端请求错误（code 类型应为 int，string 仅为了表达多个错误码）
+          schema:
+            $ref: '#/definitions/example.ClientError'
+        "401":
+          description: 登陆失效
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: 没有权限
+          schema:
+            $ref: '#/definitions/example.PermissionDenied'
+        "404":
+          description: 资源不存在
+          schema:
+            $ref: '#/definitions/example.ResourceNotFound'
+        "429":
+          description: 请求过于频繁
+          schema:
+            $ref: '#/definitions/example.TooManyRequest'
+        "500":
+          description: 服务器出错
+          schema:
+            $ref: '#/definitions/example.ServerError'
+      security:
+      - Authorization: []
+      summary: 删除角色
+      tags:
+      - 角色
+    get:
+      consumes:
+      - text/plain
+      description: 角色详情
+      parameters:
+      - description: 角色 id
+        format: uint
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            allOf:
+            - $ref: '#/definitions/example.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/role.DetailResponse'
+              type: object
+        "400":
+          description: 客户端请求错误（code 类型应为 int，string 仅为了表达多个错误码）
+          schema:
+            $ref: '#/definitions/example.ClientError'
+        "401":
+          description: 登陆失效
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: 没有权限
+          schema:
+            $ref: '#/definitions/example.PermissionDenied'
+        "404":
+          description: 资源不存在
+          schema:
+            $ref: '#/definitions/example.ResourceNotFound'
+        "429":
+          description: 请求过于频繁
+          schema:
+            $ref: '#/definitions/example.TooManyRequest'
+        "500":
+          description: 服务器出错
+          schema:
+            $ref: '#/definitions/example.ServerError'
+      security:
+      - Authorization: []
+      summary: 角色详情
+      tags:
+      - 角色
+    put:
+      consumes:
+      - application/json
+      description: 更新角色
+      parameters:
+      - description: 角色 id
+        format: uint
+        in: path
+        minimum: 1
+        name: id
+        required: true
+        type: integer
+      - description: 角色信息
+        format: string
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/role.CreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/example.Success'
+        "400":
+          description: 客户端请求错误（code 类型应为 int，string 仅为了表达多个错误码）
+          schema:
+            $ref: '#/definitions/example.ClientError'
+        "401":
+          description: 登陆失效
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: 没有权限
+          schema:
+            $ref: '#/definitions/example.PermissionDenied'
+        "404":
+          description: 资源不存在
+          schema:
+            $ref: '#/definitions/example.ResourceNotFound'
+        "429":
+          description: 请求过于频繁
+          schema:
+            $ref: '#/definitions/example.TooManyRequest'
+        "500":
+          description: 服务器出错
+          schema:
+            $ref: '#/definitions/example.ServerError'
+      security:
+      - Authorization: []
+      summary: 更新角色
+      tags:
+      - 角色
+  /v1/roles:
+    get:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 角色列表
+      parameters:
+      - description: 查询字符串
+        format: string
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            allOf:
+            - $ref: '#/definitions/example.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/role.ListItem'
+                  type: array
+              type: object
+        "400":
+          description: 客户端请求错误（code 类型应为 int，string 仅为了表达多个错误码）
+          schema:
+            $ref: '#/definitions/example.ClientError'
+        "401":
+          description: 登陆失效
+          schema:
+            $ref: '#/definitions/example.Unauthorized'
+        "403":
+          description: 没有权限
+          schema:
+            $ref: '#/definitions/example.PermissionDenied'
+        "404":
+          description: 资源不存在
+          schema:
+            $ref: '#/definitions/example.ResourceNotFound'
+        "429":
+          description: 请求过于频繁
+          schema:
+            $ref: '#/definitions/example.TooManyRequest'
+        "500":
+          description: 服务器出错
+          schema:
+            $ref: '#/definitions/example.ServerError'
+      security:
+      - Authorization: []
+      summary: 角色列表
+      tags:
+      - 角色
   /v1/trace:
     get:
       consumes:

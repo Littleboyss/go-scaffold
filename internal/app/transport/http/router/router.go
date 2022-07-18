@@ -12,6 +12,7 @@ import (
 	"go-scaffold/internal/app/pkg/errors"
 	"go-scaffold/internal/app/transport/http/api/docs"
 	"go-scaffold/internal/app/transport/http/handler/v1/greet"
+	"go-scaffold/internal/app/transport/http/handler/v1/role"
 	"go-scaffold/internal/app/transport/http/handler/v1/trace"
 	"go-scaffold/internal/app/transport/http/handler/v1/user"
 	casbinmd "go-scaffold/internal/app/transport/http/middleware/casbin"
@@ -46,6 +47,7 @@ func New(
 	greetHandler greet.HandlerInterface,
 	traceHandler trace.HandlerInterface,
 	userHandler user.HandlerInterface,
+	roleHandler role.HandlerInterface,
 ) *gin.Engine {
 	if httpConf == nil {
 		return nil
@@ -140,6 +142,12 @@ func New(
 			apiV1Group.POST("/user", userHandler.Create)
 			apiV1Group.PUT("/user/:id", userHandler.Update)
 			apiV1Group.DELETE("/user/:id", userHandler.Delete)
+
+			apiV1Group.GET("/roles", roleHandler.List)
+			apiV1Group.GET("/role/:id", roleHandler.Detail)
+			apiV1Group.POST("/role", roleHandler.Create)
+			apiV1Group.PUT("/role/:id", roleHandler.Update)
+			apiV1Group.DELETE("/role/:id", roleHandler.Delete)
 		}
 	}
 
