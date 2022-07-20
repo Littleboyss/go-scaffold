@@ -6,3 +6,4 @@ tmp
 etc/*
 !etc/*.example
 requests.http
+*.log

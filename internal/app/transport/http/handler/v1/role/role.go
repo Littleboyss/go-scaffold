@@ -1,6 +1,7 @@
 package role
 
 import (
+	"github.com/casbin/casbin/v2"
 	"github.com/gin-gonic/gin"
 	"github.com/go-kratos/kratos/v2/log"
 	"go-scaffold/internal/app/service/role"
@@ -19,6 +20,7 @@ var _ HandlerInterface = (*Handler)(nil)
 type Handler struct {
 	logger  *log.Helper
 	service role.ServiceInterface
+	enforcer *casbin.Enforcer
 }
 
 func NewHandler(

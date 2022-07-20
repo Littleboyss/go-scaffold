@@ -7,7 +7,7 @@ import (
 // Role 角色表
 type UserRole struct {
 	BaseModel
-	UserId uint64 `gorm:"column:user_id;type:int(10);not null;comment:角色id"`
+	UserId uint64 `gorm:"column:user_id;type:int(10);not null;comment:用户id"`
 	RoleId uint64 `gorm:"column:user_id;type:int(10);not null;comment:角色id"`
 }
 
@@ -18,7 +18,7 @@ func (u UserRole) TableName() string {
 func (u UserRole) Migrate(db *gorm.DB) error {
 	if err := db.Set(
 		"gorm:table_options",
-		"ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表'",
+		"ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表'",
 	).AutoMigrate(u); err != nil {
 		return err
 	}

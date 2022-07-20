@@ -80,7 +80,7 @@ func initApp(rotateLogs *rotatelogs.RotateLogs, logLogger log.Logger, zapLogger 
 		cleanup2()
 		return nil, nil, err
 	}
-	service := greet.NewService(logLogger)
+	service := greet.NewService(enforcer, logLogger)
 	handler := greet2.NewHandler(logLogger, service)
 	discoveryConfig := configConfig.Discovery
 	discoveryDiscovery, err := discovery.New(discoveryConfig, zapLogger)

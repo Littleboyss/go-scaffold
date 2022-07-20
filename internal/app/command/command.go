@@ -56,6 +56,20 @@ func Setup(rootCommand *cobra.Command, newCommand func() (*Command, func(), erro
 						},
 					},
 				},
+				{
+					Entity: &cobra.Command{
+						Use:   "addPolicy",
+						Short: "示例子命令",
+						Run: func(cmd *cobra.Command, args []string) {
+							command, cleanup, err := newCommand()
+							if err != nil {
+								panic(err)
+							}
+							defer cleanup()
+							command.greetHandler.AddPolicy(cmd, args)
+						},
+					},
+				},
 			},
 		},
 	})

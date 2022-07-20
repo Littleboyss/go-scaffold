@@ -1,0 +1,3 @@
+p, *, *, GET, /api/v1/greet, *, *
+p, *, *, POST, /api/get-email-and-phone, *, *
+p, *, *, POST, /api/login, *, *

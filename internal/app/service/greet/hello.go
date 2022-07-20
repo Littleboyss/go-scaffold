@@ -22,6 +22,10 @@ type HelloResponse struct {
 }
 
 func (s *Service) Hello(ctx context.Context, req HelloRequest) (*HelloResponse, error) {
+	added, _ := s.enforcer.AddPolicy("Tom", "/v1/greet", "get")
+	if added {
+		s.logger.Info("权限添加成功")
+	}
 	if err := req.Validate(); err != nil {
 		return nil, errorsx.ValidateError(errorsx.WithMessage(err.Error()))
 	}

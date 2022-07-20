@@ -22,7 +22,7 @@ func (r CasbinRule) TableName() string {
 func (r CasbinRule) Migrate(db *gorm.DB) error {
 	if err := db.Set(
 		"gorm:table_options",
-		"ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限表'",
+		"ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='权限表'",
 	).AutoMigrate(r); err != nil {
 		return err
 	}

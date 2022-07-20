@@ -18,7 +18,7 @@ func (u Role) TableName() string {
 func (u Role) Migrate(db *gorm.DB) error {
 	if err := db.Set(
 		"gorm:table_options",
-		"ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表'",
+		"ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表'",
 	).AutoMigrate(u); err != nil {
 		return err
 	}

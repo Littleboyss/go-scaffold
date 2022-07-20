@@ -8,6 +8,7 @@ import (
 type Handler interface {
 	Default(cmd *cobra.Command, args []string)
 	To(cmd *cobra.Command, args []string)
+	AddPolicy(cmd *cobra.Command, args []string)
 }
 
 type handler struct {

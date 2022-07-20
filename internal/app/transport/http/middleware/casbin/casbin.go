@@ -2,10 +2,11 @@ package casbin
 
 import (
 	"errors"
-	pcasbin "github.com/casbin/casbin/v2"
-	"github.com/gin-gonic/gin"
 	"go-scaffold/internal/app/transport/http/middleware"
 	"net/http"
+
+	pcasbin "github.com/casbin/casbin/v2"
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -100,12 +101,15 @@ func (c *Casbin) Validate() gin.HandlerFunc {
 			handleResponse(ctx, http.StatusInternalServerError, c.ErrorResponseBody, ErrGettingCasbinRequestParameters)
 			return
 		}
+		c.Logger.Info("请求值", items)
 
 		if c.Logger != nil {
-			c.Logger.Debugf("casbin request: %v", items)
+			c.Logger.Info("casbin request: %v", items)
 		}
 
 		ok, err := c.Enforcer.Enforce(items...)
+		c.Logger.Info(err)
+
 		if err != nil {
 			if c.Logger != nil {
 				c.Logger.Errorf("%s: %s", ErrMatchingCasbinRequestParameters, err)
