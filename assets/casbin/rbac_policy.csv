@@ -1,3 +1,12 @@
-p, *, *, GET, /api/v1/greet, *, *
-p, *, *, POST, /api/get-email-and-phone, *, *
-p, *, *, POST, /api/login, *, *
+p,admin,/api/v1/test,GET
+p,admin,/api/v1/user/{id},GET
+p,guest,/api/v1/users,GET
+p,admin,/api/v1/user,PUT
+p,admin,/api/v1/user,POST
+p,guest,/api/v1/role/{id},GET
+p,guest,/api/v1/roles,GET
+p,guest,/api/v1/role,PUT
+p,guest,/api/v1/role,POST
+p,guest,/api/v1/greet?name=Tom,GET
+
+g,guest,admin

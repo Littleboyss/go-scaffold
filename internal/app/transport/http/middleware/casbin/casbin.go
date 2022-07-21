@@ -4,7 +4,7 @@ import (
 	"errors"
 	"go-scaffold/internal/app/transport/http/middleware"
 	"net/http"
-
+	
 	pcasbin "github.com/casbin/casbin/v2"
 	"github.com/gin-gonic/gin"
 )
@@ -101,12 +101,18 @@ func (c *Casbin) Validate() gin.HandlerFunc {
 			handleResponse(ctx, http.StatusInternalServerError, c.ErrorResponseBody, ErrGettingCasbinRequestParameters)
 			return
 		}
+		items = []interface{}{"guest", ctx.Request.URL.Path, ctx.Request.Method}
 		c.Logger.Info("请求值", items)
-
 		if c.Logger != nil {
 			c.Logger.Info("casbin request: %v", items)
 		}
-
+		p :=c.Enforcer.GetAllSubjects()
+		c.Logger.Info("casbin all P: %v", p)
+		o :=c.Enforcer.GetAllObjects()
+		c.Logger.Info("casbin all O: %v", o)
+		a :=c.Enforcer.GetAllActions()
+		c.Logger.Info("casbin all A: %v", a)
+		
 		ok, err := c.Enforcer.Enforce(items...)
 		c.Logger.Info(err)
 
